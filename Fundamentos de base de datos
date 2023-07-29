@@ -1,0 +1,37 @@
+create database Servicios_tecnolo
+go
+use Servicios_tecnolo
+go
+
+--Tabla Zonas
+create table Zonas(
+  Id_Zona int primary key,
+  Nombre_Zona varchar(100)
+);
+
+--Tabla Clientes
+create table Clientes(
+  Id_Cliente int primary key,
+  Nombre varchar(100),
+  Género varchar(100),
+  Fecha_Nac date,
+  Id_Zona int,
+  foreign key (Id_Zona) references Zonas(Id_Zona)
+);
+
+--Tabla Servicios
+create table Servicios(
+  Id_Servicio int primary key,
+  Nombre_Servicio varchar(100)
+);
+
+--Tabla Contratos
+create table Contratos(
+  Id_Contrato int primary key,
+  Id_Clientes int,
+  Id_Servicio int,
+  Fecha_contrato date,
+  Monto_Mensual decinal (10,2),
+  foreign key (Id_Cliente) references Clientes(Id_Cliente),
+  foreign key (Id_Servicio) references Servicios(Id_Servicio)
+);
