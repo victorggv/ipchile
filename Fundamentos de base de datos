@@ -1,37 +1,58 @@
-create database Servicios_tecnolo
+create database BD_Serv_Tecno;
 go
-use Servicios_tecnolo
+
+use BD_Serv_Tecno;
 go
 
 --Tabla Zonas
 create table Zonas(
-  Id_Zona int primary key,
-  Nombre_Zona varchar(100)
+  Id_Zona integer primary key,
+  Nombre_Zona varchar(100),
+  Estado_Zona bit default(1)
 );
 
 --Tabla Clientes
 create table Clientes(
-  Id_Cliente int primary key,
-  Nombre varchar(100),
-  Género varchar(100),
-  Fecha_Nac date,
-  Id_Zona int,
-  foreign key (Id_Zona) references Zonas(Id_Zona)
+  Id_Cliente integer primary key,
+  Nombre_Cliente varchar(100),
+  Género_Cliente varchar(100),
+  Fecha_Nac_Cliente date,
+  Estado_Cliente bit default(1),
+  Id_Zona integer foreign key references Zonas(Id_Zona)
 );
 
 --Tabla Servicios
 create table Servicios(
-  Id_Servicio int primary key,
-  Nombre_Servicio varchar(100)
+  Id_Servicio integer primary key,
+  Nombre_Servicio varchar(100),
+  Estado_Servicio bit default(1)
 );
 
 --Tabla Contratos
 create table Contratos(
-  Id_Contrato int primary key,
-  Id_Clientes int,
-  Id_Servicio int,
+  Id_Contrato integer primary key,
   Fecha_contrato date,
-  Monto_Mensual decinal (10,2),
-  foreign key (Id_Cliente) references Clientes(Id_Cliente),
-  foreign key (Id_Servicio) references Servicios(Id_Servicio)
+  Monto_Mensual decimal (10,2),
+  Estado_Contratos bit default(1),
+  Id_Clientes integer foreign key references Clientes(Id_Cliente),
+  Id_Servicio integer foreign key references Servicios(Id_Servicio)
 );
+
+--Insertar Zonas
+insert into Zonas (Id_Zona,Nombre_Zona,Estado_Zona)
+values (1,'Viña sel Mar',1);
+insert into Zonas (Id_Zona,Nombre_Zona,Estado_Zona)
+values (2,'Santiago',1);
+
+--Insertar Clientes
+insert into Clientes values (1,'Emma Rolls','M','1969-12-24',1,1);
+insert into Clientes values (2,'Elizabeth Honda','M','1978-06-10',1,1);
+insert into Clientes values (3,'Elizabeth Wolks','F','1980-12-06',1,2);
+
+--Insertar Servicios
+insert into Servicios values (1,'Móvil',1);
+insert into Servicios values (2,'Móvil + Fijo',1);
+
+--Insertar Contratos
+insert into Contratos values (1,'2020-02',23000.00,1,1,1);
+insert into Contratos values (2,'2020-03',64141.00,1,2,1);
